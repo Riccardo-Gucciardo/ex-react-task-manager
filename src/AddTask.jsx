@@ -1,11 +1,17 @@
 // src/components/AddTask.jsx
 import { useState, useContext } from 'react';
-import { TaskContext } from './context/TaskContext';
+import { GlobalContext } from './context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 
 function AddTask() {
   const [title, setTitle] = useState('');
-  const { addTask } = useContext(TaskContext);
+  const context = useContext(GlobalContext);
+
+  if (!context) {
+    throw new Error('AddTask deve essere usato all\'interno di un GlobalContextProvider');
+  }
+
+  const { addTask } = context;
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -13,7 +19,7 @@ function AddTask() {
     if (title.trim()) {
       addTask(title);
       setTitle('');
-      navigate('/'); // Reindirizza alla lista dopo l'aggiunta
+      navigate('/');
     }
   };
 

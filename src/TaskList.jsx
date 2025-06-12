@@ -1,9 +1,15 @@
 // src/components/TaskList.jsx
 import { useContext } from 'react';
-import { TaskContext } from './context/TaskContext';
+import { GlobalContext } from './context/GlobalContext';
 
 function TaskList() {
-  const { tasks, deleteTask } = useContext(TaskContext);
+  const context = useContext(GlobalContext);
+
+  if (!context) {
+    throw new Error('TaskList deve essere usato all\'interno di un GlobalContextProvider');
+  }
+
+  const { tasks, deleteTask } = context;
 
   return (
     <div className="container">

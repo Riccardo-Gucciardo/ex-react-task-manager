@@ -10,12 +10,12 @@ function App() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/" activeClassName="active">
+            <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
               Lista Task
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-task" activeClassName="active">
+            <NavLink to="/add-task" className={({ isActive }) => (isActive ? 'active' : '')}>
               Aggiungi Task
             </NavLink>
           </li>
