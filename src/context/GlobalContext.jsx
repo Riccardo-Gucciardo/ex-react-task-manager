@@ -6,9 +6,17 @@ export const GlobalContext = createContext();
 export function GlobalContextProvider({ children }) {
   const [tasks, setTasks] = useState([]);
 
-  // Funzione per aggiungere un task (temporanea, senza API)
+  // Funzione per aggiungere un task
   const addTask = (title) => {
-    setTasks((prevTasks) => [...prevTasks, { id: Date.now(), title }]);
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      {
+        id: Date.now(),
+        title,
+        status: 'To do', // Valore predefinito
+        createdAt: new Date().toISOString(), // Data corrente
+      },
+    ]);
   };
 
   // Funzione per eliminare un task
@@ -32,7 +40,7 @@ export function GlobalContextProvider({ children }) {
     };
 
     fetchTasks();
-  }, []);
+  }, []); 
 
   return (
     <GlobalContext.Provider value={{ tasks, setTasks, addTask, deleteTask }}>
