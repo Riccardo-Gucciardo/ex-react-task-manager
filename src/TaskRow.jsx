@@ -1,10 +1,10 @@
-// src/components/TaskRow.jsx
 import { memo, useContext } from 'react';
 import { GlobalContext } from './context/GlobalContext';
 
 function TaskRow({ task }) {
   const { title, status = 'To do', createdAt } = task;
-  const { deleteTask } = useContext(GlobalContext);
+  // Assicurati di destrutturare removeTask
+  const { removeTask } = useContext(GlobalContext); 
 
   // Formatta la data di creazione
   const formattedDate = createdAt
@@ -30,9 +30,9 @@ function TaskRow({ task }) {
       <td>
         <button
           className="delete-button"
-          onClick={() => deleteTask(task.id)}
+          onClick={() => removeTask(task.id)} 
         >
-        Elimina
+          Elimina
         </button>
       </td>
     </tr>

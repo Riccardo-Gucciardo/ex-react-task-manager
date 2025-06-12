@@ -7,9 +7,7 @@ function AddTask() {
   const [title, setTitle] = useState('');
   const context = useContext(GlobalContext);
 
-  if (!context) {
-    throw new Error('AddTask deve essere usato all\'interno di un GlobalContextProvider');
-  }
+
 
   const { addTask } = context;
   const navigate = useNavigate();
