@@ -1,5 +1,5 @@
 import { useState, useContext, useRef } from 'react';
-import { GlobalContext } from './context/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\"\\,.<>?/`~";
@@ -12,12 +12,11 @@ function AddTask() {
   const statusRef = useRef(null);
 
   const context = useContext(GlobalContext);
-
   if (!context) {
     throw new Error('AddTask deve essere usato all\'interno di un GlobalContextProvider');
   }
 
-  const { addTask } = context; // Recupera addTask dal contesto
+  const { addTask } = context;
   const navigate = useNavigate();
 
   const validateTitle = (inputTitle) => {
@@ -48,7 +47,6 @@ function AddTask() {
     const description = descriptionRef.current ? descriptionRef.current.value : '';
     const status = statusRef.current ? statusRef.current.value : 'To do';
 
-    // Crea l'oggetto task da inviare all'API
     const newTaskPayload = {
       title: currentTitle,
       description: description,
@@ -57,16 +55,14 @@ function AddTask() {
     };
 
     try {
-      await addTask(newTaskPayload); // Passa l'intero oggetto
-
-      alert('Task aggiunto con successo!'); // Alert di conferma
+      await addTask(newTaskPayload);
+      alert('Task aggiunto con successo!');
       
-      // Resetta il form
       setTitle('');
       if (descriptionRef.current) descriptionRef.current.value = '';
       if (statusRef.current) statusRef.current.value = 'To do';
 
-      navigate('/'); // Naviga alla lista task
+      navigate('/');
     } catch (error) {
       alert(`Errore nell'aggiunta del task: ${error.message}`);
       console.error('Errore nel handleSubmit di AddTask:', error);

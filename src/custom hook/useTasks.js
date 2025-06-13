@@ -13,7 +13,6 @@ function useTasks() {
         }
         const data = await response.json();
         setTasks(data);
-        console.log('Tasks recuperati con useTasks:', data);
       } catch (error) {
         console.error("Errore nel recupero dei task:", error);
       }
@@ -22,7 +21,6 @@ function useTasks() {
     fetchTasks();
   }, [API_URL]);
 
-  // Modifica la funzione addTask per accettare un oggetto taskData
   const addTask = async (taskData) => {
     try {
       const response = await fetch(`${API_URL}/tasks`, {
@@ -30,11 +28,10 @@ function useTasks() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(taskData), // Invia l'oggetto taskData come JSON
+        body: JSON.stringify(taskData),
       });
 
       if (!response.ok) {
-        // Se la risposta HTTP non è 2xx, prova a leggere l'errore dal body
         const errorData = await response.json();
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
@@ -42,10 +39,8 @@ function useTasks() {
       const result = await response.json();
 
       if (result.success) {
-        // Se l'API restituisce successo, aggiungi la task ricevuta allo stato
         setTasks((prevTasks) => [...prevTasks, result.task]);
-        console.log('Task aggiunto con successo (API):', result.task);
-        return { success: true, task: result.task }; // Restituisce il successo
+        return { success: true, task: result.task };
       } else {
         throw new Error(result.message || "Errore sconosciuto durante l'aggiunta del task.");
       }
@@ -55,13 +50,42 @@ function useTasks() {
     }
   };
 
+  const removeTask = async (taskId) => {
+    try {
+      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-  const removeTask = (id) => {
-    console.log('removeTask chiamata per ID (solo locale per ora):', id);
-    setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorData = { message: 'Errore generico durante l\'eliminazione.' };
+        try {
+            errorData = JSON.parse(errorText);
+        } catch (parseError) {
+            // Se non è JSON, il testo stesso sarà il messaggio o un default
+        }
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json().catch(() => ({ success: true }));
+
+      if (result.success) {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+        return { success: true };
+      } else {
+        throw new Error(result.message || "Errore sconosciuto durante l'eliminazione del task.");
+      }
+    } catch (error) {
+      console.error(`Errore durante l'eliminazione del task ${taskId}:`, error.message);
+      throw error;
+    }
   };
 
   const updateTask = (id, updatedFields) => {
+    // Logica per aggiornare un task (da implementare con API PUT)
     console.log('updateTask chiamata per ID (solo locale per ora):', id, 'con campi:', updatedFields);
     setTasks(prevTasks =>
       prevTasks.map(task =>

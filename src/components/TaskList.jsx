@@ -1,20 +1,20 @@
-// src/components/TaskList.jsx
+// src/TaskList.jsx
 import { useContext } from 'react';
-import { GlobalContext } from './context/GlobalContext';
-import TaskRow from './TaskRow';
+import { GlobalContext } from '../context/GlobalContext';
+import TaskRow from './TaskRow'
 
 function TaskList() {
   const context = useContext(GlobalContext);
-
-
-
+  if (!context) {
+    throw new Error('TaskList deve essere usato all\'interno di un GlobalContextProvider');
+  }
   const { tasks } = context;
 
   return (
     <div className="container">
-      <h1>Lista dei Task</h1>
+      <h1>Lista Task</h1>
       {tasks.length === 0 ? (
-        <p>Nessun task disponibile.</p>
+        <p>Nessun task disponibile. Aggiungine uno nuovo!</p>
       ) : (
         <table className="task-table">
           <thead>
@@ -22,7 +22,6 @@ function TaskList() {
               <th>Nome</th>
               <th>Stato</th>
               <th>Data di Creazione</th>
-              <th>Azione</th>
             </tr>
           </thead>
           <tbody>

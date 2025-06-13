@@ -1,8 +1,7 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import TaskList from './TaskList';
-import AddTask from './AddTask';
-
+import TaskList from './components/TaskList'
+import AddTask from './components/AddTask';
+import TaskDetail from './components/TaskDetail';
 
 function App() {
   return (
@@ -24,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<TaskList />} />
         <Route path="/add-task" element={<AddTask />} />
+        <Route path="/task/:id" element={<TaskDetail />} />
       </Routes>
     </BrowserRouter>
   );

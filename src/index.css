@@ -1,15 +1,39 @@
-/* src/App.css */
+/* src/App.css - Nuovo Look Completamente Riprogettato */
+
+/* Variabili CSS per facilità di modifica */
+:root {
+  --color-bg-primary: #121212; /* Nero molto scuro per lo sfondo principale */
+  --color-bg-secondary: #1e1e1e; /* Grigio scuro per card, form, nav */
+  --color-bg-tertiary: #2a2a2a; /* Grigio leggermente più chiaro per sfondi input/header tabella */
+  --color-text-light: #e0e0e0; /* Testo chiaro principale */
+  --color-text-medium: #b0b0b0; /* Testo secondario, etichette */
+  --color-accent-primary: #00bcd4; /* Blu-verde brillante per gli accenti */
+  --color-accent-hover: #0097a7; /* Blu-verde scuro all'hover */
+  --color-error: #ef4444; /* Rosso per errori */
+  --color-success: #10b981; /* Verde per successo */
+  --color-warning: #f59e0b; /* Arancione per warning/doing */
+
+  --spacing-unit: 1rem; /* Unità di spaziatura base */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+/* Stili Globali e Body */
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #1e1e2e;
-  color: #e0e0e0;
+  background-color: var(--color-bg-primary); /* Sfondo principale */
+  color: var(--color-text-light); /* Testo chiaro */
+  line-height: 1.6;
+  font-size: 16px;
 }
 
+/* Navigazione */
 nav {
-  background-color: #2a2a3a;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: var(--color-bg-secondary);
+  padding: calc(var(--spacing-unit) * 1.2) var(--spacing-unit);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 nav ul {
@@ -17,199 +41,278 @@ nav ul {
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 1.5rem;
+  gap: calc(var(--spacing-unit) * 2.5);
+  justify-content: center;
 }
 
 nav a {
   text-decoration: none;
-  color: #a0a0b0;
+  color: var(--color-text-medium);
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  transition: color 0.3s ease;
+  padding: 0.5rem var(--spacing-unit);
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  font-size: 1.05rem;
 }
 
 nav a:hover {
-  color: #ffffff;
+  color: var(--color-text-light);
 }
 
 nav a.active {
-  color: #60a5fa;
-  border-bottom: 2px solid #60a5fa;
+  color: var(--color-accent-primary);
+  border-bottom: 3px solid var(--color-accent-primary);
 }
 
+/* Contenitore Principale */
 .container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 850px; /* Larghezza leggermente maggiore */
+  margin: calc(var(--spacing-unit) * 2.5) auto;
+  padding: 0 calc(var(--spacing-unit) * 1.5);
 }
 
 h1 {
-  color: #ffffff;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  color: var(--color-text-light);
+  font-size: 2.5rem; /* Titolo più grande e impattante */
+  margin-bottom: calc(var(--spacing-unit) * 1.8);
+  text-align: center;
+  font-weight: 700;
 }
 
+/* Form (Aggiungi Task) */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  background-color: #2a2a3a;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  gap: calc(var(--spacing-unit) * 1.2);
+  background-color: var(--color-bg-secondary);
+  padding: calc(var(--spacing-unit) * 2);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-input, textarea, select { /* Modificato per includere textarea e select */
-  padding: 0.75rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #3a3a4a;
-  color: #e0e0e0;
-  font-size: 1rem;
-}
-
-input:focus, textarea:focus, select:focus { /* Modificato per includere textarea e select */
-  outline: none;
-  box-shadow: 0 0 0 2px #60a5fa;
-}
-
-button {
-  padding: 0.75rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #60a5fa;
-  color: #ffffff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #3b82f6;
-}
-
-/* Stili per la tabella */
-.task-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #2a2a3a;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.task-table th,
-.task-table td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #3a3a4a;
-}
-
-.task-table th {
-  background-color: #3a3a4a;
-  color: #a0a0b0;
-  font-weight: 600;
-}
-
-.task-table tr:hover {
-  background-color: #333344;
-}
-
-/* Stili per la colonna status */
-.status-cell {
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.status-to-do {
-  background-color: #ef4444; /* Rosso */
-  color: #ffffff;
-}
-
-.status-doing {
-  background-color: #f59e0b; /* Giallo */
-  color: #ffffff;
-}
-
-.status-done {
-  background-color: #10b981; /* Verde */
-  color: #ffffff;
-}
-
-/* Stili per errori e textarea/select */
-.input-error {
-  border: 2px solid #ef4444 !important;
-}
-
-.error-message {
-  color: #ef4444;
-  font-size: 0.85rem;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
-}
-
-textarea {
-  resize: vertical;
-}
-
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a0a0b0'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1rem;
-}
-
-/* src/App.css */
-
-/* ... (Il resto del tuo CSS esistente) ... */
-
-/* AGGIUNTE E MODIFICHE PER LA PAGINA ADD TASK */
-
-/* Rendi le label un po' più evidenti e allinea bene con gli input */
 form label {
-  color: #a0a0b0; /* Colore più chiaro per le label */
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem; /* Spazio sotto la label */
-  display: block; /* Ogni label su una nuova riga */
+  color: var(--color-text-medium);
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  display: block;
+  font-weight: 600;
 }
 
-/* Stili specifici per input, textarea e select all'interno del form */
 form input[type="text"],
 form textarea,
 form select {
-  width: calc(100% - 1.5rem); /* Calcola la larghezza per il padding */
-  padding: 0.75rem;
-  border: 1px solid #3a3a4a; /* Aggiunto un bordo sottile */
-  border-radius: 4px;
-  background-color: #2e2e3e; /* Scurito leggermente lo sfondo per contrasto */
-  color: #e0e0e0;
+  width: calc(100% - calc(var(--spacing-unit) * 1.5));
+  padding: 0.9rem;
+  border: 1px solid var(--color-bg-tertiary); /* Bordo sottile */
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-light);
   font-size: 1rem;
-  box-sizing: border-box; /* Include padding e bordo nella larghezza totale */
-  margin-top: 0.25rem; /* Spazio sopra l'input rispetto alla label */
+  box-sizing: border-box;
+  margin-top: 0.4rem;
+}
+
+form input[type="text"]::placeholder,
+form textarea::placeholder {
+  color: var(--color-text-medium);
+  opacity: 0.7;
 }
 
 form input[type="text"]:focus,
 form textarea:focus,
 form select:focus {
   outline: none;
-  border-color: #60a5fa; /* Bordo colorato al focus */
-  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5); /* Ombra più soft al focus */
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.5);
 }
 
-/* Stili per il pulsante "Aggiungi Task" */
+/* Stili per i bottoni */
+button {
+  padding: 0.85rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-accent-primary);
+  color: #ffffff; /* Testo bianco puro per i bottoni */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+button:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+
 form button[type="submit"] {
-  width: 100%; /* Rendi il bottone a larghezza piena */
-  padding: 0.85rem; /* Aumenta leggermente il padding */
-  margin-top: 1rem; /* Spazio superiore dal campo precedente */
-  font-size: 1.05rem; /* Testo leggermente più grande */
+  width: 100%;
+  padding: 1rem;
+  margin-top: calc(var(--spacing-unit) * 1.5);
+  font-size: 1.1rem;
 }
 
-/* Miglioramento per la freccia del select */
-form select {
-  background-position: right 0.75rem center, center left; /* Allontana la freccia dal bordo */
-  background-size: 1rem, 100%; /* Mantieni la dimensione della freccia */
+/* Tabella Task List */
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.task-table th,
+.task-table td {
+  padding: calc(var(--spacing-unit) * 1.2) calc(var(--spacing-unit) * 1.5); /* Padding generoso */
+  text-align: left;
+  border-bottom: 1px solid var(--color-bg-tertiary); /* Linea divisoria */
+}
+
+.task-table th {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-medium);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.task-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.task-table tr:hover {
+  background-color: #242424; /* Sfondo leggermente diverso all'hover della riga */
+}
+
+/* Stili specifici per la colonna Status */
+.status-cell {
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: 20px; /* Forma a pillola */
+  text-align: center;
+  display: inline-block;
+  min-width: 80px;
+}
+
+.status-to-do {
+  background-color: var(--color-error);
+  color: #ffffff;
+}
+
+.status-doing {
+  background-color: var(--color-warning);
+  color: #ffffff;
+}
+
+.status-done {
+  background-color: var(--color-success);
+  color: #ffffff;
+}
+
+/* Messaggi di Errore */
+.input-error {
+  border: 2px solid var(--color-error) !important;
+}
+
+.error-message {
+  color: var(--color-error);
+  font-size: 0.88rem;
+  margin-top: -0.5rem;
+  margin-bottom: var(--spacing-unit);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Selezione personalizzata per i dropdown */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23b0b0b0'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+/* Link Titolo Task nella lista */
+.task-title-link {
+  color: var(--color-accent-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.task-title-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* Stili per la pagina Dettaglio Task */
+.task-detail-container {
+  padding: calc(var(--spacing-unit) * 2.5);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  margin-top: calc(var(--spacing-unit) * 3);
+}
+
+.task-detail-title {
+  color: var(--color-text-light);
+  font-size: 2.8rem; /* Titolo ancora più grande per il dettaglio */
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  text-align: center;
+  font-weight: 700;
+}
+
+.task-detail-card {
+  background-color: var(--color-bg-primary); /* Sfondo della "card" interna, lo stesso del body */
+  padding: calc(var(--spacing-unit) * 2);
+  border-radius: var(--border-radius-sm);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-bg-tertiary);
+}
+
+.task-detail-card p {
+  font-size: 1.15rem;
+  margin-bottom: calc(var(--spacing-unit) * 1.2);
+  color: var(--color-text-light);
+}
+
+.task-detail-card p strong {
+  color: #ffffff; /* Titoli dei campi in bianco puro */
+  margin-right: 0.6rem;
+}
+
+.delete-button-large {
+  display: block;
+  width: fit-content;
+  margin: calc(var(--spacing-unit) * 2.5) auto 0 auto;
+  padding: 1rem 2.5rem;
+  font-size: 1.15rem;
+  background-color: var(--color-error);
+}
+
+.delete-button-large:hover {
+  background-color: #c43232; /* Tono più scuro del rosso all'hover */
+  transform: translateY(-2px);
+}
+
+.task-detail-card .status-cell {
+    display: inline-block;
+    padding: 0.4em 1em;
+    font-size: 1em;
+    border-radius: 9999px;
+    vertical-align: middle;
+}
+
+/* Messaggi di caricamento/errore nella pagina di dettaglio */
+.task-detail-container.error-message {
+  background-color: var(--color-error);
+  color: #ffffff;
+  text-align: center;
+  padding: calc(var(--spacing-unit) * 1.5);
+  font-size: 1.1rem;
+  border-radius: var(--border-radius-md);
 }

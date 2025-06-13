@@ -1,12 +1,10 @@
-import { memo, useContext } from 'react';
-import { GlobalContext } from './context/GlobalContext';
+// src/components/TaskRow.jsx
+import { memo } from 'react'; 
+import { NavLink } from 'react-router-dom';
 
 function TaskRow({ task }) {
   const { title, status = 'To do', createdAt } = task;
-  // Assicurati di destrutturare removeTask
-  const { removeTask } = useContext(GlobalContext); 
 
-  // Formatta la data di creazione
   const formattedDate = createdAt
     ? new Date(createdAt).toLocaleDateString('it-IT', {
         day: '2-digit',
@@ -15,26 +13,21 @@ function TaskRow({ task }) {
       })
     : 'N/A';
 
-  // Normalizza lo status per la classe CSS
   const statusClass = status
     ? status.toLowerCase().replace(' ', '-')
     : 'to-do';
 
   return (
     <tr className="task-row">
-      <td>{title || 'Senza titolo'}</td>
+      <td>
+        <NavLink to={`/task/${task.id}`} className="task-title-link">
+          {title || 'Senza titolo'}
+        </NavLink>
+      </td>
       <td className={`status-cell status-${statusClass}`}>
         {status || 'To do'}
       </td>
       <td>{formattedDate}</td>
-      <td>
-        <button
-          className="delete-button"
-          onClick={() => removeTask(task.id)} 
-        >
-          Elimina
-        </button>
-      </td>
     </tr>
   );
 }
