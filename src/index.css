@@ -59,7 +59,7 @@ form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-input {
+input, textarea, select { /* Modificato per includere textarea e select */
   padding: 0.75rem;
   border: none;
   border-radius: 4px;
@@ -68,7 +68,7 @@ input {
   font-size: 1rem;
 }
 
-input:focus {
+input:focus, textarea:focus, select:focus { /* Modificato per includere textarea e select */
   outline: none;
   box-shadow: 0 0 0 2px #60a5fa;
 }
@@ -136,4 +136,80 @@ button:hover {
 .status-done {
   background-color: #10b981; /* Verde */
   color: #ffffff;
+}
+
+/* Stili per errori e textarea/select */
+.input-error {
+  border: 2px solid #ef4444 !important;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a0a0b0'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+/* src/App.css */
+
+/* ... (Il resto del tuo CSS esistente) ... */
+
+/* AGGIUNTE E MODIFICHE PER LA PAGINA ADD TASK */
+
+/* Rendi le label un po' più evidenti e allinea bene con gli input */
+form label {
+  color: #a0a0b0; /* Colore più chiaro per le label */
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem; /* Spazio sotto la label */
+  display: block; /* Ogni label su una nuova riga */
+}
+
+/* Stili specifici per input, textarea e select all'interno del form */
+form input[type="text"],
+form textarea,
+form select {
+  width: calc(100% - 1.5rem); /* Calcola la larghezza per il padding */
+  padding: 0.75rem;
+  border: 1px solid #3a3a4a; /* Aggiunto un bordo sottile */
+  border-radius: 4px;
+  background-color: #2e2e3e; /* Scurito leggermente lo sfondo per contrasto */
+  color: #e0e0e0;
+  font-size: 1rem;
+  box-sizing: border-box; /* Include padding e bordo nella larghezza totale */
+  margin-top: 0.25rem; /* Spazio sopra l'input rispetto alla label */
+}
+
+form input[type="text"]:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: #60a5fa; /* Bordo colorato al focus */
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5); /* Ombra più soft al focus */
+}
+
+/* Stili per il pulsante "Aggiungi Task" */
+form button[type="submit"] {
+  width: 100%; /* Rendi il bottone a larghezza piena */
+  padding: 0.85rem; /* Aumenta leggermente il padding */
+  margin-top: 1rem; /* Spazio superiore dal campo precedente */
+  font-size: 1.05rem; /* Testo leggermente più grande */
+}
+
+/* Miglioramento per la freccia del select */
+form select {
+  background-position: right 0.75rem center, center left; /* Allontana la freccia dal bordo */
+  background-size: 1rem, 100%; /* Mantieni la dimensione della freccia */
 }
