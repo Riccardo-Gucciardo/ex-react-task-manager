@@ -17,6 +17,7 @@ function AddTask() {
     throw new Error('AddTask deve essere usato all\'interno di un GlobalContextProvider');
   }
 
+  const { addTask } = context; // Recupera addTask dal contesto
   const navigate = useNavigate();
 
   const validateTitle = (inputTitle) => {
@@ -31,7 +32,7 @@ function AddTask() {
     return '';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const currentTitle = title.trim();
@@ -47,19 +48,29 @@ function AddTask() {
     const description = descriptionRef.current ? descriptionRef.current.value : '';
     const status = statusRef.current ? statusRef.current.value : 'To do';
 
-    const newTaskData = {
+    // Crea l'oggetto task da inviare all'API
+    const newTaskPayload = {
       title: currentTitle,
       description: description,
       status: status,
       createdAt: new Date().toISOString(),
-      id: Date.now(),
     };
 
-    console.log('Nuovo Task da aggiungere (solo log):', newTaskData);
+    try {
+      await addTask(newTaskPayload); // Passa l'intero oggetto
 
-    setTitle('');
-    if (descriptionRef.current) descriptionRef.current.value = '';
-    if (statusRef.current) statusRef.current.value = 'To do';
+      alert('Task aggiunto con successo!'); // Alert di conferma
+      
+      // Resetta il form
+      setTitle('');
+      if (descriptionRef.current) descriptionRef.current.value = '';
+      if (statusRef.current) statusRef.current.value = 'To do';
+
+      navigate('/'); // Naviga alla lista task
+    } catch (error) {
+      alert(`Errore nell'aggiunta del task: ${error.message}`);
+      console.error('Errore nel handleSubmit di AddTask:', error);
+    }
   };
 
   return (

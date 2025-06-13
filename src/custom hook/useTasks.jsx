@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 
 function useTasks() {
   const [tasks, setTasks] = useState([]);
-  const API_URL = import.meta.env.VITE_API_URL; // Recupera l'URL dall'ambiente
+  const API_URL = import.meta.env.VITE_API_URL;
 
-  // Funzione per il recupero iniziale dei task (GET)
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -17,35 +16,53 @@ function useTasks() {
         console.log('Tasks recuperati con useTasks:', data);
       } catch (error) {
         console.error("Errore nel recupero dei task:", error);
-        // Potresti voler impostare uno stato di errore qui
       }
     };
 
     fetchTasks();
-  }, [API_URL]); 
+  }, [API_URL]);
 
-  // Funzioni di gestione dei task (vuote per ora, come richiesto)
-  const addTask = (title) => {
-    // Logica per aggiungere un task (da implementare nel prossimo milestone)
-    console.log('addTask chiamata con:', title);
-    // Esempio temporaneo :
-    setTasks(prevTasks => [
-      ...prevTasks,
-      { id: Date.now(), title, status: 'To do', createdAt: new Date().toISOString() }
-    ]);
+  // Modifica la funzione addTask per accettare un oggetto taskData
+  const addTask = async (taskData) => {
+    try {
+      const response = await fetch(`${API_URL}/tasks`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskData), // Invia l'oggetto taskData come JSON
+      });
+
+      if (!response.ok) {
+        // Se la risposta HTTP non è 2xx, prova a leggere l'errore dal body
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Se l'API restituisce successo, aggiungi la task ricevuta allo stato
+        setTasks((prevTasks) => [...prevTasks, result.task]);
+        console.log('Task aggiunto con successo (API):', result.task);
+        return { success: true, task: result.task }; // Restituisce il successo
+      } else {
+        throw new Error(result.message || "Errore sconosciuto durante l'aggiunta del task.");
+      }
+    } catch (error) {
+      console.error('Errore durante l\'aggiunta del task (useTasks):', error.message);
+      throw error;
+    }
   };
 
+
   const removeTask = (id) => {
-    // Logica per rimuovere un task (da implementare nel prossimo milestone)
-    console.log('removeTask chiamata per ID:', id);
-    // Esempio temporaneo:
+    console.log('removeTask chiamata per ID (solo locale per ora):', id);
     setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
   };
 
   const updateTask = (id, updatedFields) => {
-    // Logica per aggiornare un task (da implementare nel prossimo milestone)
-    console.log('updateTask chiamata per ID:', id, 'con campi:', updatedFields);
-    // Esempio temporaneo:
+    console.log('updateTask chiamata per ID (solo locale per ora):', id, 'con campi:', updatedFields);
     setTasks(prevTasks =>
       prevTasks.map(task =>
         task.id === id ? { ...task, ...updatedFields } : task
