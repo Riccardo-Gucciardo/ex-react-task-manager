@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalContext';
+import Modal from './modal';
 
 function TaskDetail() {
   const { id } = useParams();
@@ -8,6 +9,7 @@ function TaskDetail() {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false)
 
   const context = useContext(GlobalContext);
   if (!context) {
@@ -106,9 +108,16 @@ function TaskDetail() {
         <p>
           <strong>Data di Creazione:</strong> {formattedDate}
         </p>
-        <button className="delete-button-large" onClick={handleDeleteClick}>
+        <button className="delete-button-large" onClick={ () =>setShowModal(true)}>
           Elimina Task
         </button>
+        <Modal 
+          title = "Conferma Eliminazione"
+          contente = {<p>Sei sicuro di voler eliminare la task?</p>}
+          show = {showModal}
+          onClose={() => setShowModal(false)}
+          onConfirm={handleDeleteClick}
+          />
       </div>
     </div>
   );

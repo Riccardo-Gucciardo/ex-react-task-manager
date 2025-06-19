@@ -316,3 +316,133 @@ select {
   font-size: 1.1rem;
   border-radius: var(--border-radius-md);
 }
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7); /* Overlay scuro semi-trasparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Sopra tutti gli altri elementi */
+  animation: fadeIn 0.3s ease-in-out; /* Animazione di dissolvenza */
+}
+
+/* Modal Content */
+.modal {
+  background-color: var(--color-bg-secondary); /* Stesso sfondo delle card */
+  border-radius: var(--border-radius-md);
+  padding: calc(var(--spacing-unit) * 2);
+  max-width: 500px; /* Larghezza massima */
+  width: 90%; /* Responsive per schermi più piccoli */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Ombra più pronunciata */
+  animation: slideIn 0.3s ease-in-out; /* Animazione di ingresso */
+}
+
+/* Titolo del Modal */
+.modal h2 {
+  color: var(--color-text-light);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 calc(var(--spacing-unit) * 1.5);
+  text-align: center;
+}
+
+/* Contenuto del Modal */
+.modal p {
+  color: var(--color-text-medium);
+  font-size: 1.1rem;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  text-align: center;
+}
+
+/* Contenitore dei Bottoni */
+.bottoni-modal {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--spacing-unit) * 1.5);
+  margin-top: calc(var(--spacing-unit) * 2);
+}
+
+/* Stili dei Bottoni */
+.bottoni-modal button {
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Bottone Annulla */
+.bottoni-modal button:first-child {
+  background-color: var(--color-bg-tertiary); /* Grigio scuro */
+  color: var(--color-text-light);
+  border: 1px solid var(--color-text-medium);
+}
+
+.bottoni-modal button:first-child:hover {
+  background-color: #333333; /* Leggermente più chiaro all'hover */
+  transform: translateY(-2px);
+}
+
+/* Bottone Conferma */
+.bottoni-modal button:last-child {
+  background-color: var(--color-accent-primary); /* Blu-verde brillante */
+  color: #ffffff;
+}
+
+.bottoni-modal button:last-child:hover {
+  background-color: var(--color-accent-hover); /* Blu-verde scuro all'hover */
+  transform: translateY(-2px);
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .modal {
+    width: 95%;
+    padding: calc(var(--spacing-unit) * 1.5);
+  }
+
+  .modal h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal p {
+    font-size: 1rem;
+  }
+
+  .bottoni-modal {
+    flex-direction: column; /* Bottoni impilati su schermi piccoli */
+    gap: calc(var(--spacing-unit) * 1);
+  }
+
+  .bottoni-modal button {
+    width: 100%; /* Bottoni a tutta larghezza */
+  }
+}
