@@ -446,3 +446,53 @@ select {
     width: 100%; /* Bottoni a tutta larghezza */
   }
 }
+
+.green-button-large {
+  display: block;
+  width: fit-content;
+  margin: calc(var(--spacing-unit) * 2.5) auto 0 auto;
+  padding: 1rem 2.5rem;
+  font-size: 1.15rem;
+  background-color: var(--color-success); /* Verde per il bottone di modifica */
+  color: #ffffff;
+}
+
+.green-button-large:hover {
+  background-color: #0d905d; /* Tono più scuro del verde all'hover */
+  transform: translateY(-2px);
+}
+
+.task-detail-buttons {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--spacing-unit) * 1.5);
+  margin-top: calc(var(--spacing-unit) * 2.5);
+}
+
+.green-button-large,
+.delete-button-large {
+  display: inline-block;
+  width: fit-content;
+  padding: 1rem 2.5rem;
+  font-size: 1.15rem;
+}
+
+.green-button-large {
+  background-color: var(--color-success);
+  color: #ffffff;
+}
+
+.green-button-large:hover {
+  background-color: #0d905d;
+  transform: translateY(-2px);
+}
+
+.delete-button-large {
+  background-color: var(--color-error);
+  color: #ffffff;
+}
+
+.delete-button-large:hover {
+  background-color: #c43232;
+  transform: translateY(-2px);
+}
