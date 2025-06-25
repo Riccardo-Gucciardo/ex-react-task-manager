@@ -496,3 +496,44 @@ select {
   background-color: #c43232;
   transform: translateY(-2px);
 }
+
+/* Stili per la barra di ricerca (Milestone 12) */
+.search-bar {
+  margin-bottom: calc(var(--spacing-unit) * 2); /* Spazio sotto la barra di ricerca */
+  display: flex;
+  justify-content: center; /* Centra la barra di ricerca */
+  width: 100%; /* Occupa tutta la larghezza disponibile nel container */
+}
+
+.search-bar input[type="text"] {
+  width: 100%; /* L'input occupa tutta la larghezza del suo contenitore */
+  max-width: 500px; /* Limita la larghezza massima per non farla troppo lunga */
+  padding: 0.8rem 1.2rem; /* Padding interno */
+  border: 1px solid var(--color-bg-tertiary); /* Bordo sottile */
+  border-radius: var(--border-radius-md); /* Bordi arrotondati come le card */
+  background-color: var(--color-bg-tertiary); /* Sfondo dell'input */
+  color: var(--color-text-light); /* Colore del testo */
+  font-size: 1.1rem; /* Dimensione del font leggermente più grande */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); /* Leggera ombra interna */
+}
+
+.search-bar input[type="text"]::placeholder {
+  color: var(--color-text-medium);
+  opacity: 0.6; /* Rendi il placeholder leggermente più trasparente */
+}
+
+.search-bar input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-accent-primary); /* Bordo accentato al focus */
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.5), inset 0 1px 3px rgba(0, 0, 0, 0.2); /* Ombra esterna e interna al focus */
+  background-color: #333333; /* Sfondo leggermente più scuro al focus */
+}
+
+/* Responsive per la barra di ricerca */
+@media (max-width: 768px) {
+  .search-bar input[type="text"] {
+    font-size: 1rem; /* Adatta la dimensione del font per schermi più piccoli */
+    padding: 0.7rem 1rem;
+  }
+}
